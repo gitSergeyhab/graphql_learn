@@ -6,23 +6,33 @@ import Dialog from '@material-ui/core/Dialog';
 import SaveIcon from '@material-ui/icons/Save';
 
 import withHocs from './DirectorsFormHoc';
+import { useMutation } from '@apollo/client';
 
-class DirectorsForm extends React.Component {
-  handleClose = () => { this.props.onClose(); };
+import { addDirectorMutation, updateDirectorMutation } from './mutations';
+import { directorsQuery } from '../DirectorsTable/queries'
 
-  handleSave = () => {
-    const { selectedValue, onClose, addDirector, updateDirector } = this.props;
+const DirectorsForm = (props) => {
+
+  const handleClose = () => props.onClose();
+
+  const [updateDirector] = useMutation(updateDirectorMutation, { refetchQueries: [directorsQuery] })
+  const [addDirector] = useMutation(addDirectorMutation, { refetchQueries: [directorsQuery] })
+
+
+  const handleSave = () => {
+    const { selectedValue, onClose } = props;
     const { id, name, age } = selectedValue;
-    id ? updateDirector({id, name,  age: Number(age)}) : addDirector({name, age: Number(age)});
+    id ?
+      updateDirector({ variables: {id, name,  age: Number(age)} }) :
+      addDirector({ variables: {name, age: Number(age)} });
     onClose();
   };
 
-  render() {
-    const { classes, open, handleChange, selectedValue = {} } = this.props;
+    const { classes, open, handleChange, selectedValue = {} } = props;
     const { name, age } = selectedValue;
 
     return (
-      <Dialog onClose={this.handleClose} open={open} aria-labelledby="simple-dialog-title">
+      <Dialog onClose={handleClose} open={open} aria-labelledby="simple-dialog-title">
         <DialogTitle className={classes.title} id="simple-dialog-title">Director information</DialogTitle>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
@@ -45,14 +55,13 @@ class DirectorsForm extends React.Component {
             variant="outlined"
           />
           <div className={classes.wrapper}>
-            <Button onClick={this.handleSave} variant="contained" color="primary" className={classes.button}>
+            <Button onClick={handleSave} variant="contained" color="primary" className={classes.button}>
               <SaveIcon /> Save
             </Button>
           </div>
         </form>
       </Dialog>
     );
-  }
 };
 
   export default withHocs(DirectorsForm);

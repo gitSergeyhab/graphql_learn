@@ -17,7 +17,7 @@ import MoviesSearch from '../MoviesSearch/MoviesSearch'
 
 import withHocs from './MoviesTableHoc';
 import { moviesQuery } from './queries';
-import { useQuery } from '@apollo/client';
+import { useQuery, NetworkStatus  } from '@apollo/client';
 
 
 // const movies = [
@@ -140,8 +140,11 @@ const MoviesTable = (props) => {
   const [data1, setData1] = useState({});
   const [name, setName] = useState('');
 
-  const {data, loading, error, fetchMore} = useQuery(moviesQuery);
-  // console.log(data, loading, error)
+  // const {data, loading, error, fetchMore} = useQuery(moviesQuery);
+
+  const {data, loading, error, refetch, networkStatus } = useQuery(moviesQuery);
+
+  console.log(networkStatus, NetworkStatus  )
 
 
 
@@ -179,17 +182,23 @@ const MoviesTable = (props) => {
   const handleChange = (evt) => setName(evt.target.value);
   
 
+  // const handleSearch = (evt) => {
+  //   if(evt.charCode === 13) {
+  //     fetchMore({
+  //       variables: { name },
+  //       updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
+  //     });
+  //   }
+  // };
+
+
+
   const handleSearch = (evt) => {
     if(evt.charCode === 13) {
-      fetchMore({
-        variables: { name },
-        updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
-      });
+      console.log('sskjdkj')
+      refetch( {name} )
     }
   };
-
-  
-  
   
   const { classes } = props;
 
@@ -219,7 +228,7 @@ const MoviesTable = (props) => {
                   <TableRow key={movie.id}>
                     <TableCell component="th" scope="row">{movie.name}</TableCell>
                     <TableCell>{movie.genre}</TableCell>
-                    <TableCell align="right">{movie.rate}</TableCell>
+                    <TableCell align="right">{movie.rate || ''}</TableCell>
                     <TableCell>{movie.director.name}</TableCell>
                     <TableCell>
                       <Checkbox checked={movie.watched} disabled />
