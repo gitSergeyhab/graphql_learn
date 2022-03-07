@@ -63,7 +63,7 @@ const DirectorsTable = (props) => {
     handleClose();
   };
 
-  const handleChange = (evt) => setName(evt.target.value)
+  const handleChange = (evt) => setName(evt.target.value);
 
   const handleSearch = (evt) => {
     if(evt.charCode === 13) {
