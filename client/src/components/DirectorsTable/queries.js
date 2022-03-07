@@ -1,6 +1,6 @@
-import {gql} from 'apollo-boost';
+import {gql} from '@apollo/client'
 
-export const directorQuery = gql`
+export const directorsQuery = gql`
   query directorsQuery($name: String) {
     directors(name: $name) {
       id

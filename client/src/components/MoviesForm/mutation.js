@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import {gql} from '@apollo/client'
 
 export const addMovieMutation = gql`
 mutation addMovie ($name: String!, $genre: String!, $rate: Int, $watched: Boolean!, $directorId: ID) {

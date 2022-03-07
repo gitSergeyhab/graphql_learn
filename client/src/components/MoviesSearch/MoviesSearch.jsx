@@ -15,7 +15,7 @@ class MoviesSearch extends React.Component {
           <SearchIcon />
         </div>
         <InputBase
-          onChange={handleChange('name')}
+          onChange={handleChange}
           onKeyPress={(e) => handleSearch(e)}
           value={name}
           placeholder="Search…"

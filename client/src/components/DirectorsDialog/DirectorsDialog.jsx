@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BlockIcon from '@material-ui/icons/Block';
 
-import withHoc from './DirectorsDialogHoc';
+// import withHoc from './DirectorsDialogHoc';
 
 class DirectorsDialog extends React.Component {
 
@@ -47,4 +47,4 @@ class DirectorsDialog extends React.Component {
   }
 }
 
-export default withHoc(DirectorsDialog);
+export default DirectorsDialog;

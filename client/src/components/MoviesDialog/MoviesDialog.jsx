@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BlockIcon from '@material-ui/icons/Block';
 
-import withHoc from './MovieDialogHoc';
+// import withHoc from './MovieDialogHoc';
 
 class MoviesDialog extends React.Component {
 
@@ -47,4 +47,4 @@ class MoviesDialog extends React.Component {
   }
 }
 
-export default withHoc(MoviesDialog);
+export default MoviesDialog;
