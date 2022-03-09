@@ -7,19 +7,23 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BlockIcon from '@material-ui/icons/Block';
+import { useMutation } from '@apollo/client';
+import { deleteMovieMutation } from './mutation'
+import { moviesQuery } from '../MoviesTable/queries';
 
-// import withHoc from './MovieDialogHoc';
 
-class MoviesDialog extends React.Component {
+const MoviesDialog = (props) => {
 
-  handleDelete = () => {
-    const { id, handleClose, deleteMovie } = this.props;
-    deleteMovie(id);
+  const [deleteMovie] = useMutation(deleteMovieMutation, {refetchQueries: [moviesQuery]})
+
+  const handleDelete = () => {
+    const { id, handleClose } = props;
+    deleteMovie({ variables: {id} });
+    
     handleClose();
   }
 
-  render() {
-    const { open, handleClose } = this.props;
+    const { open, handleClose } = props;
 
     return (
       <Dialog
@@ -38,13 +42,12 @@ class MoviesDialog extends React.Component {
           <Button onClick={handleClose} color="primary">
             <BlockIcon /> Cancel
           </Button>
-          <Button onClick={this.handleDelete} color="primary" autoFocus>
+          <Button onClick={handleDelete} color="primary" autoFocus>
             <DeleteForeverIcon/> Confirm
           </Button>
         </DialogActions>
       </Dialog>
     );
-  }
 }
 
 export default MoviesDialog;

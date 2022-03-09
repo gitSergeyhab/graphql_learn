@@ -30,7 +30,7 @@ const DirectorsTable = (props) => {
   const [currentDirector, setDirector] = useState({})
   const [name, setName] = useState('');
 
-  const { data, loading, error, fetchMore } = useQuery(directorsQuery);
+  const { data, loading, error, refetch } = useQuery(directorsQuery);
 
   if (loading) {
     return <div> Loading... </div>
@@ -67,16 +67,12 @@ const DirectorsTable = (props) => {
 
   const handleSearch = (evt) => {
     if(evt.charCode === 13) {
-      fetchMore({
-        variables: { name },
-        updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
-      });
+      refetch({ name })
     }
   };
 
     const { classes } = props;
 
-    // const {directors = []} = data; 
 
     return (
       <>

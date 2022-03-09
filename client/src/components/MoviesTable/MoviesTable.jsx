@@ -153,6 +153,7 @@ const MoviesTable = (props) => {
   }
 
   if (error) {
+    console.log(error)
     return <div>!!! ERROR !!!</div>
   }
 
@@ -229,7 +230,7 @@ const MoviesTable = (props) => {
                     <TableCell component="th" scope="row">{movie.name}</TableCell>
                     <TableCell>{movie.genre}</TableCell>
                     <TableCell align="right">{movie.rate || ''}</TableCell>
-                    <TableCell>{movie.director.name}</TableCell>
+                    <TableCell>{ movie.director ? movie.director.name : ''}</TableCell>
                     <TableCell>
                       <Checkbox checked={movie.watched} disabled />
                     </TableCell>

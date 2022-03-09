@@ -23,7 +23,8 @@ const DirectorsForm = (props) => {
     const { selectedValue, onClose } = props;
     const { id, name, age } = selectedValue;
     id ?
-      updateDirector({ variables: {id, name,  age: Number(age)} }) :
+      updateDirector({ variables: {id, name, age: Number(age)} })
+      :
       addDirector({ variables: {name, age: Number(age)} });
     onClose();
   };
